@@ -12,12 +12,13 @@ export default function Container() {
           lines,
           firstPosition,
           lastPosition,
+          containerRef,
           handleMouseDown,
           handleMouseMove,
           handleMouseUp } = useLogic()
 
   return (
-    <div className='w-full flex gap-8 relative' onMouseUp={handleMouseUp} onMouseMove={handleMouseMove}>
+    <div ref={containerRef} className='w-full flex gap-8 relative mt-[100px] ml-[50px]' onMouseUp={handleMouseUp} onMouseMove={handleMouseMove}>
       <svg className='absolute w-full -z-10'>
         {
           lines.map((line, index) => {

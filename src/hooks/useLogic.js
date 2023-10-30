@@ -1,10 +1,17 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 
 export default function useLogic() {
   const [isPressed, setIsPressed] = useState(false)
   const [firstPosition, setFirstPosition] = useState({})
   const [lastPosition, setLastPosition] = useState({})
   const [lines, setLines] = useState([])
+
+  const containerRef = useRef(null);
+
+  const getCoords = (coord) => {
+    const rect = containerRef.current.getBoundingClientRect()
+    return { x: coord.x - rect.left, y: coord.y - rect.top}
+  }
 
   const changePositions = (pos) => {
     setFirstPosition(pos)
@@ -13,12 +20,14 @@ export default function useLogic() {
 
   const handleMouseMove = (e) => {
     if(isPressed) {
-      setLastPosition({ x: e.pageX, y: e.pageY})
+      const pos = getCoords({ x: e.clientX, y: e.clientY});
+      setLastPosition(pos)
     }
   }
 
   const handleMouseDown = (e) => {
-    changePositions({ x: e.pageX, y: e.pageY})
+    const pos = getCoords({ x: e.clientX, y: e.clientY})
+    changePositions(pos)
     setIsPressed(true)
   }
 
@@ -40,5 +49,5 @@ export default function useLogic() {
     setIsPressed(false)
   }
 
-  return { isPressed, lines, firstPosition, lastPosition, handleMouseDown, handleMouseMove, handleMouseUp }
+  return { isPressed, lines, firstPosition, lastPosition, containerRef, handleMouseDown, handleMouseMove, handleMouseUp }
 }
