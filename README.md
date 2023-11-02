@@ -2,6 +2,8 @@
 
 Componente creado con [Create React App](https://github.com/facebook/create-react-app).
 
+Idea tomada de [Adrian](https://twitter.com/wydmanski_)
+
 ## Descripción
 
 Componente que genera 2 listas con la posibilidad de crear conexiones entre ellas
